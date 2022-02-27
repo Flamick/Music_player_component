@@ -6,8 +6,10 @@
     box-sizing: border-box;
 }
 
-*:focus {
-    outline: 0;
+*:focus,
+*::before:focus,
+*::after:focus {
+    outline: 0 !important;
 }
 
 :root {
