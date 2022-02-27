@@ -9,7 +9,7 @@
 *:focus,
 *::before:focus,
 *::after:focus {
-    outline: 0 !important;
+    outline: none !important;
 }
 
 :root {
