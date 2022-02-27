@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+*:focus {
+    outline: 0;
+}
+
 :root {
     --red: #a70000;
     --violet: #ff5252;
