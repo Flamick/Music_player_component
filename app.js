@@ -3,6 +3,7 @@ const wrapper = document.querySelector('.wrapper'),
       musicName = wrapper.querySelector('.song-details .name'),
       musicArtist = wrapper.querySelector('.song-details .artist'),
       mainAudio = wrapper.querySelector('#main-audio'),
+      mainAudioDuration = wrapper.querySelector('.duration'),
       PlayPauseBtn = wrapper.querySelector('.play-pause'),
       prevBtn = wrapper.querySelector('#prev-song'),
       nextBtn = wrapper.querySelector('#next-song'),
@@ -18,7 +19,19 @@ let musicIndex = 1;
 window.addEventListener('load', () => {
     loadMusic(musicIndex);
     playingNow();
+    setTotalDuration();
 });
+
+function setTotalDuration() {
+    const onLoadSong = document.querySelector('.playing audio');
+    const onLoadSongDuration = onLoadSong.duration;
+    let totalMin = Math.floor(onLoadSongDuration / 60);
+    let totalSec = Math.floor(onLoadSongDuration % 60);
+    if(totalSec < 10) {
+        totalSec = `0${totalSec}`;
+    }
+    mainAudioDuration.innerText = `${totalMin}:${totalSec}`;
+}
 
 // loadMusic function
 function loadMusic(indexNumb) {
@@ -125,6 +138,13 @@ progressArea.addEventListener('click', (e) => {
     playMusic();
 });
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 // repeat, shuffle button change
 const repeatBtn = wrapper.querySelector('#repeat-playlist');
 repeatBtn.addEventListener('click', () => {
@@ -138,20 +158,23 @@ repeatBtn.addEventListener('click', () => {
             break;
             // if icon is repeat one, turn to shuffle
         case 'repeat_one':
-            repeatBtn.innerText = "repeat";
+            repeatBtn.innerText = "shuffle";
             repeatBtn.setAttribute('title', 'Playback shuffle');
             break;
             // if icon is shuffle turn to repeat
-        // case 'shuffle':
-        //     repeatBtn.innerText = "repeat";
-        //     repeatBtn.setAttribute('title', 'Playlist looped');
-        //     break;
+        case 'shuffle':
+            repeatBtn.innerText = "repeat";
+            repeatBtn.setAttribute('title', 'Playlist looped');
+            break;
     }
 });
+
+let isShuffled = false;
 
 // repeat/shuffle button after song ends
 mainAudio.addEventListener('ended', () => {
     let getText = repeatBtn.innerText;
+
     // set button function based on the icon
     switch(getText) {
         // if the icon is repeat
@@ -165,17 +188,33 @@ mainAudio.addEventListener('ended', () => {
             playMusic();
             break;
             // if icon is shuffle
-        // case 'shuffle':
+        case 'shuffle':
+            if (!isShuffled) {
+                shuffleArray(allMusic);
+                isShuffled = true;
+                musicIndex ++;
+                console.log(allMusic);
+                console.log(musicIndex);
+            }   else if(musicIndex === 5)  {
+                shuffleArray(allMusic);
+                musicIndex = 1;
+                console.log(allMusic);
+                console.log(musicIndex);
+            }   else   {
+                nextMusic();
+                console.log(musicIndex);
+            }
+
         //     let randomIndex = Math.floor((Math.random() * allMusic.length) + 1);
         //     do {
         //         randomIndex = Math.floor((Math.random() * allMusic.length) + 1);
         //         // this look runs until the next random number isnt the same as the current music index
         //     }   while(musicIndex == randomIndex);
         //     musicIndex = randomIndex;
-        //     loadMusic(musicIndex);
-        //     playMusic();
-        //     playingNow();
-        //     break;
+            loadMusic(musicIndex);
+            playMusic();
+            playingNow();
+            break;
     }
 });
 
