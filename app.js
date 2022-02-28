@@ -1,4 +1,5 @@
 const wrapper = document.querySelector('.wrapper'),
+      nowPlaying = wrapper.querySelector('.now-playing'),
       musicImg = wrapper.querySelector('.img-area img'),
       musicName = wrapper.querySelector('.song-details .name'),
       musicArtist = wrapper.querySelector('.song-details .artist'),
@@ -35,6 +36,7 @@ function setTotalDuration() {
 
 // loadMusic function
 function loadMusic(indexNumb) {
+    nowPlaying.innerText = 'Playing song ' + (musicIndex) + ' of ' + allMusic.length;
     musicName.innerText = allMusic[indexNumb - 1].name;
     musicArtist.innerText = allMusic[indexNumb - 1].artist;
     musicImg.src = `img/${allMusic[indexNumb - 1].img}.jpg`;
