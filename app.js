@@ -166,7 +166,7 @@ repeatBtn.addEventListener('click', () => {
     //         repeatBtn.innerText = "repeat";
     //         repeatBtn.setAttribute('title', 'Playlist looped');
     //         break;
-    // }
+    }
 });
 
 let isShuffled = false;
