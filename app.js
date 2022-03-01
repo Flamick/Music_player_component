@@ -160,14 +160,14 @@ repeatBtn.addEventListener('click', () => {
             break;
             // if icon is repeat one, turn to shuffle
         case 'repeat_one':
-            repeatBtn.innerText = "repeat";
+            repeatBtn.innerText = "shuffle";
             repeatBtn.setAttribute('title', 'Playback shuffle');
             break;
             // if icon is shuffle turn to repeat
-    //     case 'shuffle':
-    //         repeatBtn.innerText = "repeat";
-    //         repeatBtn.setAttribute('title', 'Playlist looped');
-    //         break;
+        case 'shuffle':
+            repeatBtn.innerText = "repeat";
+            repeatBtn.setAttribute('title', 'Playlist looped');
+            break;
     }
 });
 
@@ -190,22 +190,22 @@ mainAudio.addEventListener('ended', () => {
             playMusic();
             break;
             // if icon is shuffle
-        // case 'shuffle':
-            // if (!isShuffled) {
-            //     shuffleArray(allMusic);
-            //     isShuffled = true;
-            //     musicIndex ++;
-            //     console.log(allMusic);
-            //     console.log(musicIndex);
-            // }   else if(musicIndex === 5)  {
-            //     shuffleArray(allMusic);
-            //     musicIndex = 1;
-            //     console.log(allMusic);
-            //     console.log(musicIndex);
-            // }   else   {
-            //     nextMusic();
-            //     console.log(musicIndex);
-            // }
+        case 'shuffle':
+            if (!isShuffled) {
+                shuffleArray(allMusic);
+                isShuffled = true;
+                musicIndex ++;
+                console.log(allMusic);
+                console.log(musicIndex);
+            }   else if(musicIndex === 5)  {
+                shuffleArray(allMusic);
+                musicIndex = 1;
+                console.log(allMusic);
+                console.log(musicIndex);
+            }   else   {
+                nextMusic();
+                console.log(musicIndex);
+            }
 
         //     let randomIndex = Math.floor((Math.random() * allMusic.length) + 1);
         //     do {
